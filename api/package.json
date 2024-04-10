@@ -6,6 +6,6 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {"npm install"},
-  "devDependencies": {}
+  "dependencies": {},
+  "devDependencies": {"@azure/functions": "^4.3.0"}
 }
