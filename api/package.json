@@ -6,6 +6,6 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {npm install},
+  "dependencies": {"npm install"},
   "devDependencies": {}
 }
