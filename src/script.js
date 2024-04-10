@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cars = data;
                 carList.innerHTML = '';
                 data.forEach((car, index) => {
+                    
                     const carCard = document.createElement('div');
                     carCard.classList.add('car-card');
                     carCard.innerHTML = `
@@ -35,15 +36,17 @@ function addCar(newCar) {
         },
         body: JSON.stringify(newCar)
     })
-        .then(response => response.json())
+        .then(response => 
+            response.json())
         .then(data => {
             console.log('Success:', data);
             //reload cars
-            // const loadCarsBtn = document.getElementById('loadCarsBtn');
+            //const loadCarsBtn = document.getElementById('loadCarsBtn');
             loadCarsBtn.click();
         })
         .catch(error => {
             console.error('Error:', error);
+            
         });
 }
 
@@ -53,6 +56,7 @@ carForm.addEventListener('submit', event => {
     const model = document.getElementById('model').value;
     const year = document.getElementById('year').value;
     const price = document.getElementById('price').value;
+    
     addCar({ make, model, year, price });
     carForm.reset();
 });
@@ -60,6 +64,7 @@ carForm.addEventListener('submit', event => {
 // Function to remove a car
 function removeCar(index) {
     const carId = cars[index].id;
+    
     fetch(`http://localhost:3001/cars/${carId}`, {
         method: 'DELETE'
     })
@@ -67,7 +72,7 @@ function removeCar(index) {
         .then(data => {
             console.log('Success:', data);
             //reload cars
-            // const loadCarsBtn = document.getElementById('loadCarsBtn');
+            //const loadCarsBtn = document.getElementById('loadCarsBtn');
             loadCarsBtn.click();
         })
         .catch(error => {
@@ -78,6 +83,7 @@ function removeCar(index) {
 carList.addEventListener('click', event => {
     if (event.target.classList.contains('btn-remove')) {
         const index = event.target.dataset.index;
+        
         removeCar(index);
     }
 });

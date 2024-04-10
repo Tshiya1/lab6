@@ -1,15 +1,23 @@
 //create cars api using express
+const fetch = require('node-fetch')
 const express = require('express');
+
 const app = express();
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+app.use(express.json())
 
 
-app.use(express.json());
-
-const cars = require('./cars.json');
+const cars = require('../cars.json');
 
 //get all cars
 app.get('/cars', (req, res) => {
+    
     res.json(cars);
 });
 
@@ -23,6 +31,7 @@ app.get('/cars/:id', (req, res) => {
 //update car
 app.put('/cars/:id', (req, res) => {
     const id = req.params.id;
+    
     const updatedCar = req.body;
     const index = cars.findIndex(car => car.id === id);
     cars[index] = updatedCar;
@@ -39,9 +48,8 @@ app.delete('/cars/:id', (req, res) => {
 
 //add car
 app.post('/cars', (req, res) => {
-    console.log(req);
+    
     const newCar = req.body;
-    console.log(newCar);
     cars.push(newCar);
     res.json(newCar);
 });
@@ -50,3 +58,7 @@ app.post('/cars', (req, res) => {
 app.listen(3001, () => {
     console.log('Server started at http://localhost:3001');
 });
+
+
+
+module.exports = app;
